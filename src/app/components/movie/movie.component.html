@@ -1,0 +1,53 @@
+<app-loading *ngIf="loadingMovie"></app-loading>
+<app-error *ngIf="errorMovie"></app-error>
+
+<div class="container m-2-0 animated fadein" *ngIf="movie && !errorMovie">
+
+  <h1>
+    {{ movie.title }}
+  </h1>
+
+  <div class="row">
+    <div class="col-md-5">
+      <img class="img-fluid img-thumbnail" [src]="movie | movieImage:true" [alt]="movie.title" [title]="movie.title">
+    </div>
+
+    <div class="col-md-7">
+      <h3>
+        Sinopsis
+      </h3>
+
+      <hr>
+
+      <p class="text-justify">
+        {{ movie.overview | overview }}
+      </p>
+
+      <h4>
+        Frase celebre
+      </h4>
+
+      <p>
+        {{ movie.tagline | tagline }}
+      </p>
+
+      <p>
+        Popularidad:
+        <span class="badge" [ngClass]="{ 'badge-primary': movie.popularity >= 8, 'badge-warning': movie.popularity >= 5 && movie.popularity < 8, 'badge-danger': movie.popularity < 5 }">
+          {{ movie.popularity }}/10
+        </span>
+
+        <br>
+
+        Voto promedio:
+        <span class="badge badge-light">
+          {{ movie.vote_average }}
+        </span>
+      </p>
+
+      <button type="button" class="btn btn-outline-danger" [routerLink]="[ '/' + returnTo, search ]">
+        Regresar
+      </button>
+    </div>
+  </div>
+</div>

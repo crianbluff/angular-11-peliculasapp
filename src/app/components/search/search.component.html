@@ -1,0 +1,33 @@
+<div class="mt-5 animated fadein fast">
+	<div class="container">
+		<div class="col-md-12">
+			<div class="form-group">
+				<input type="search" name="search" class="form-control" placeholder="Buscar película..." [(ngModel)]="search" (keyup.enter)="searchMovie()">
+			</div>
+		</div>
+	</div>
+</div>
+
+<app-loading *ngIf="loadingSearch"></app-loading>
+<app-error *ngIf="errorSearch"></app-error>
+
+<div class="card-columns m-2-0">
+
+	<div class="card animated fadein" *ngFor="let movie of _ms.movies">
+		<img class="card-img-top" [src]="movie | movieImage" [alt]="movie.title" [title]="movie.title">
+		<div class="card-body">
+			<h5 class="card-title">
+				{{ movie.title }}
+			</h5>
+
+			<p class="card-text text-justify" [ngClass]="{ 'text-center': movie.overview === '' }">
+				{{ movie.overview | slice:0:200 | overview:true }}
+			</p>
+
+			<button type="button" class="btn btn-block btn-outline-light" [routerLink]="[ '/movie', movie.id, 'search', search ]">
+				Ver más...
+			</button>
+		</div>
+	</div>
+
+</div>
